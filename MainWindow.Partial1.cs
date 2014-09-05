@@ -21,6 +21,28 @@ namespace WPF_DCupNote
                 image.EndInit();
                 return image;
             }
+            //-------------------------------------------
+            //if (bArray == null)
+            //{
+            //    if (bArray == null)
+            //        MessageBox.Show("bArray is null");
+
+            //    MessageBox.Show("Jangan2 sampai sini udah null @@");
+            //    return null; }
+
+            //var image = new BitmapImage();
+            //using (var mem = new MemoryStream(bArray))
+            //{
+            //    mem.Position = 0;
+            //    image.BeginInit();
+            //    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+            //    image.CacheOption = BitmapCacheOption.OnLoad;
+            //    image.UriSource = null;
+            //    image.StreamSource = mem;
+            //    image.EndInit();
+            //}
+            //image.Freeze();
+            //return image;
         }
     }
 }
