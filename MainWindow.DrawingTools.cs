@@ -18,6 +18,7 @@ namespace WPF_DCupNote
 
         private void MainCanvasMouseMove(object sender, MouseEventArgs e)
         {
+            // cek dfnvj
 
         }
 
