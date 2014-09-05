@@ -1,0 +1,61 @@
+﻿<Window x:Class="WPF_DCupNote.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="MainWindow" Width="1100"
+        WindowState="Maximized" ResizeMode="NoResize"
+        WindowStyle="None">
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="73"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,304,0" HorizontalAlignment="Stretch">
+            <Image x:Name="newBtn" Height="50" Margin="15,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon new.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="newBtn_MouseLeftButtonUp" />
+            <Image x:Name="openBtn" Height="50" Margin="10,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon open.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="openBtn_MouseLeftButtonUp" />
+            <Image x:Name="clearBtn" Height="50" Margin="10,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon clear.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="clearBtn_MouseLeftButtonUp" />
+            <Image x:Name="circleBtn" Height="63" Margin="40,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon circle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
+            <Image x:Name="rectangleBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon rectangle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
+            <Image x:Name="lineBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon line.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
+            <StackPanel Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Orientation="Vertical">
+                <TextBlock Text="Color:" FontWeight="Bold" FontStyle="Italic" FontSize="18" Foreground="#FF7B3F00"/>
+                <xctk:ColorPicker x:Name="colPicker" Width="150" DisplayColorAndName="True" FontSize="16"/>
+            </StackPanel>
+            <StackPanel Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Orientation="Vertical">
+                <TextBlock Text="Thickness:" FontWeight="Bold" FontStyle="Italic" FontSize="18" Foreground="#FF7B3F00"/>
+                <!--<xctk:ByteUpDown x:Name="thicknessValue" Watermark="Enter Integer" FontSize="16" Maximum="10" Width="120"/>-->
+                <ComboBox x:Name="thicknessValue" Width="120" IsEditable="False" SelectedIndex="0" FontSize="15" FontWeight="Bold">
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                    <ComboBoxItem Content="5"/>
+                    <ComboBoxItem Content="6"/>
+                    <ComboBoxItem Content="7"/>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="closeBtn" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" FontWeight="Bold" Width="27" Background="#FFFF5E5E" Click="closeBtn_click" Height="27" Panel.ZIndex="1" FontSize="16">
+            <Button.Effect>
+                <BlurEffect KernelType="Box" Radius="1" RenderingBias="Quality"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="minimizeBtn" HorizontalAlignment="Right" FontWeight="Bold" Width="27" Click="minimizeBtn_Click" Panel.ZIndex="1" Background="#FFCAD7DC" Content="O" FontSize="16" Margin="0,0,27,0">
+            <Button.Effect>
+                <BlurEffect KernelType="Box" Radius="1" RenderingBias="Quality"/>
+            </Button.Effect>
+        </Button>
+        <GroupBox Header="Details:" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Height="63" Width="299" BorderThickness="2,2,0,0" BorderBrush="#FF4E2E28">
+            <TextBlock HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="226" Margin="5,5,0,0"/>
+        </GroupBox>
+
+        <Canvas x:Name="mainCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFF7EBDE" Grid.Row="1">
+            <!--<Image x:Name="mainImage" Height="100" Canvas.Left="324" Canvas.Top="134" Width="100" Panel.ZIndex="1" Source="E:\123.png"/>-->
+        </Canvas>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="d'Cupnote" Grid.Row="0" FontWeight="Bold" FontSize="20" FontStyle="Italic"/>
+
+
+
+    </Grid>
+</Window>

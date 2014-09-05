@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DCNDataClasses">
+  <DataContextMoniker Name="/DCNDataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="33a82bfb-3df3-49ed-a1a0-44a25df7db6a" absoluteBounds="0.5, 0.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DCNDataClassesDataContext/dCupnote" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e4e89b33-f7db-48c3-9d8f-14a5e8f73fd6" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d2a48d0d-b40c-4721-a093-ec964ce97e58" absoluteBounds="5.5, 0.5, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/DCNDataClassesDataContext/LineTag" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d6cdb7d3-eaa8-4910-8eee-12c6f2d7b98d" absoluteBounds="5.515, 0.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.03516529572316); (5.5 : 1.03516529572316)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DCNDataClassesDataContext/dCupnote/dCupnote_LineTag" />
+      <nodes>
+        <classShapeMoniker Id="33a82bfb-3df3-49ed-a1a0-44a25df7db6a" />
+        <classShapeMoniker Id="d2a48d0d-b40c-4721-a093-ec964ce97e58" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1f5e67d9-47b1-4631-9cfb-850ec5447368" absoluteBounds="3.125, 2.625, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/DCNDataClassesDataContext/EllipseTag" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c1cff71e-8118-4765-9ddc-7331760fcb48" absoluteBounds="3.1399999999999997, 3.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.69533059144631); (4.125 : 1.69533059144631); (4.125 : 2.625)]" fixedFrom="Caller" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DCNDataClassesDataContext/dCupnote/dCupnote_EllipseTag" />
+      <nodes>
+        <classShapeMoniker Id="33a82bfb-3df3-49ed-a1a0-44a25df7db6a" />
+        <classShapeMoniker Id="1f5e67d9-47b1-4631-9cfb-850ec5447368" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f9140427-30c8-4523-8b36-9b2b5ef3cc3b" absoluteBounds="0.5, 2.625, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/DCNDataClassesDataContext/RectangleTag" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6e0cdc5e-c7b4-40ad-8f34-838de9496deb" absoluteBounds="0.51500000000000012, 3.085, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(0.728873969790562 : 2.07859537760417); (0.728873969790562 : 2.625)]" fixedFrom="Algorithm" fixedTo="Caller">
+      <AssociationMoniker Name="/DCNDataClassesDataContext/dCupnote/dCupnote_RectangleTag" />
+      <nodes>
+        <classShapeMoniker Id="33a82bfb-3df3-49ed-a1a0-44a25df7db6a" />
+        <classShapeMoniker Id="f9140427-30c8-4523-8b36-9b2b5ef3cc3b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
