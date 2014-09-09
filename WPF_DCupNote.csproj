@@ -78,6 +78,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="TagNoteBuffer.cs" />
     <Page Include="cekOnly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +115,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyLine.cs" />
     <Compile Include="newDcupnote.xaml.cs">
       <DependentUpon>newDcupnote.xaml</DependentUpon>
     </Compile>
@@ -158,6 +160,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="CounterID.txt" />
+    <Resource Include="CounterID.xml" />
     <Content Include="dcupnoteDatabase.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

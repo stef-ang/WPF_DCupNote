@@ -8,28 +8,45 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace WPF_DCupNote
 {
     partial class MainWindow
     {
         private string tool = null;
+        double shapeThickness;
+        Brush shapeColor;
         Point start, end;
-        Line drawLine;
+        TagNoteBuffer tagNoteBuffer;
+        MyLine drawLine;
         
+        //
+        Point _anchorPoint;
+        Point _currentPoint;
+        bool _isInDrag;
+        private readonly TranslateTransform _transform = new TranslateTransform();
+        //
+
         private void MainCanvasMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             switch (tool)
             {
                 case "Line":
+                    shapeThickness = Convert.ToDouble(((ComboBoxItem)thicknessValue.SelectedItem).Content);
+                    shapeColor = new SolidColorBrush(colPicker.SelectedColor);
                     start = e.GetPosition(mainCanvas);
-                    return;
+                    end = e.GetPosition(mainCanvas);
+                    drawLine = new MyLine(start, end, shapeThickness, shapeColor);
+                    mainCanvas.Children.Add(drawLine._TheLine);
+                    Canvas.SetZIndex(drawLine._TheLine, 1);
+                    break;
                 case "Circle":
-                    return;
+                    break;
                 case "Rectangle":
-                    return;
+                    break;
                 default:
-                    return;
+                    break;
             }
         }
 
@@ -40,35 +57,83 @@ namespace WPF_DCupNote
                 switch (tool)
                 {
                     case "Line":
-                        // pop line trakhir
-                        // push line yg baru
                         end = e.GetPosition(mainCanvas);
-                        drawLine = new Line();
-                        drawLine.X1 = start.X;
-                        drawLine.Y1 = start.Y;
-                        drawLine.X2 = end.X;
-                        drawLine.Y2 = end.Y;
-                        drawLine.StrokeThickness = Convert.ToDouble(((ComboBoxItem)thicknessValue.SelectedItem).Content);
-                        drawLine.Stroke = new SolidColorBrush(colPicker.SelectedColor);
-                        mainCanvas.Children.Add(drawLine);
-                        Canvas.SetZIndex(drawLine, 1);
-                        return;
+                        drawLine._TheLine.X2 = end.X;
+                        drawLine._TheLine.Y2 = end.Y;
+                        break;
                     case "Circle":
-                        return;
+                        break;
                     case "Rectangle":
-                        return;
+                        break;
                     default:
-                        return;
+                        break;
                 }
 
-                // clear
-                // gambar 4 stack
             }
         }
 
         private void MainCanvasMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            switch (tool)
+            {
+                case "Line":
+                    ListMyLine.Add(drawLine);
+                    tagNoteBuffer = new TagNoteBuffer(drawLine._IDLine, drawLine._TheLine.X2, drawLine._TheLine.Y2);
+                    mainCanvas.Children.Add(tagNoteBuffer.TagPanel);
+                    tagNoteBuffer.textBox.Focus();
+                    tagNoteBuffer.headerTP.MouseLeftButtonDown += new MouseButtonEventHandler(TGN_BtnDown);
+                    tagNoteBuffer.headerTP.MouseMove += new MouseEventHandler(TGN_Move);
+                    tagNoteBuffer.headerTP.MouseLeftButtonUp += new MouseButtonEventHandler(TGN_BtnUp);
+                    drawLine._TGN = tagNoteBuffer;
+                    break;
+                case "Circle":
+                    break;
+                case "Rectangle":
+                    break;
+                default:
+                    break;
+            }
+            tool = null;
+            NormalizationToolsDrawing();
+        }
 
+
+        private void ToTheThumb()
+        {
+            ControlTemplate ct = new ControlTemplate();
+            
+        }
+
+        private void TGN_BtnDown(object sender, MouseButtonEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+            _anchorPoint = e.GetPosition(null);
+            if (element != null) element.CaptureMouse();
+            _isInDrag = true;
+            e.Handled = true;
+            //tagNoteBuffer.textBox.Text += "1";
+        }
+
+        private void TGN_Move(object sender, MouseEventArgs e)
+        {
+            if (!_isInDrag) return;
+            _currentPoint = e.GetPosition(null);
+
+            _transform.X += _currentPoint.X - _anchorPoint.X;
+            _transform.Y += (_currentPoint.Y - _anchorPoint.Y);
+            mainCanvas.RenderTransform = _transform;
+            _anchorPoint = _currentPoint;
+            //textBox.Text += "2";
+        }
+
+        private void TGN_BtnUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!_isInDrag) return;
+            var element = sender as FrameworkElement;
+            if (element != null) element.ReleaseMouseCapture();
+            _isInDrag = false;
+            e.Handled = true;
+            //textBox.Text += "3";
         }
 
         private void NormalizationToolsDrawing()

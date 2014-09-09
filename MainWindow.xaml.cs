@@ -26,6 +26,7 @@ namespace WPF_DCupNote
         dCupnote dcnOpen;
         BitmapImage imageOpen;
         Size viewSize;
+        List<MyLine> ListMyLine;
 
         public MainWindow()
         {
@@ -34,6 +35,7 @@ namespace WPF_DCupNote
 
             InitializeCanvas();
             InitializeToolsDrawing();
+            ListMyLine = new List<MyLine>();
         }
 
         private void InitializeToolsDrawing()
@@ -95,7 +97,6 @@ namespace WPF_DCupNote
         {
             double sourceWidth = imgToResize.Width;
             double sourceHeight = imgToResize.Height;
-            Xceed.Wpf.Toolkit.MessageBox.Show(imgToResize.Width.ToString() + "__init__" + imgToResize.Height.ToString());
             double nPercent = 0;
             double nPercentW = 0;
             double nPercentH = 0;
@@ -111,7 +112,6 @@ namespace WPF_DCupNote
             Size resultSize = new Size();
             resultSize.Width = sourceWidth * nPercent;
             resultSize.Height = sourceHeight * nPercent;
-            Xceed.Wpf.Toolkit.MessageBox.Show(resultSize.Width.ToString() + "__result__" + resultSize.Height.ToString());
 
             return resultSize;
         }

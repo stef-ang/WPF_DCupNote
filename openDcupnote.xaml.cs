@@ -42,7 +42,7 @@ namespace WPF_DCupNote
                 openGrid.Width = 210;
                 openGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                 openGrid.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-                openGrid.ShowGridLines = true;
+                //openGrid.ShowGridLines = true;
                 openGrid.Margin = new Thickness(10, 10, 10, 10);
                 openGrid.Background = Brushes.White;
 
