@@ -14,20 +14,6 @@ namespace WPF_DCupNote
 {
     partial class MainWindow
     {
-        private string tool = null;
-        double shapeThickness;
-        Brush shapeColor;
-        Point start, end;
-        TagNoteBuffer tagNoteBuffer;
-        MyLine drawLine;
-        
-        //
-        Point _anchorPoint;
-        Point _currentPoint;
-        bool _isInDrag;
-        private readonly TranslateTransform _transform = new TranslateTransform();
-        //
-
         private void MainCanvasMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             switch (tool)
@@ -77,14 +63,15 @@ namespace WPF_DCupNote
             switch (tool)
             {
                 case "Line":
+                    drawLine._TNB = tagNoteBuffer = new TagNoteBuffer(drawLine._IDLine, drawLine._TheLine.X2, drawLine._TheLine.Y2);
+                    //drawLine._TNB.textBox.Focus();
+                    //drawLine._TNB.TagPanel.MouseMove += new MouseEventHandler(TGN_Move);
+                    //drawLine._TNB.TagPanel.MouseLeftButtonUp += new MouseButtonEventHandler(TGN_BtnUp);
+                    //drawLine._TNB.TagPanel.MouseLeftButtonDown += new MouseButtonEventHandler(TGN_BtnDown);
+                    //mainCanvas.Children.Add(drawLine._TNB.TagPanel);
+                    drawLine.DrawConnector();
+                    mainCanvas.Children.Add(drawLine._TheConnector);
                     ListMyLine.Add(drawLine);
-                    tagNoteBuffer = new TagNoteBuffer(drawLine._IDLine, drawLine._TheLine.X2, drawLine._TheLine.Y2);
-                    mainCanvas.Children.Add(tagNoteBuffer.TagPanel);
-                    tagNoteBuffer.textBox.Focus();
-                    tagNoteBuffer.headerTP.MouseLeftButtonDown += new MouseButtonEventHandler(TGN_BtnDown);
-                    tagNoteBuffer.headerTP.MouseMove += new MouseEventHandler(TGN_Move);
-                    tagNoteBuffer.headerTP.MouseLeftButtonUp += new MouseButtonEventHandler(TGN_BtnUp);
-                    drawLine._TGN = tagNoteBuffer;
                     break;
                 case "Circle":
                     break;
@@ -93,52 +80,80 @@ namespace WPF_DCupNote
                 default:
                     break;
             }
+
+            if (tool != null)
+            {
+                tagNoteBuffer.textBox.Focus();
+                tagNoteBuffer.TagPanel.MouseLeftButtonDown += new MouseButtonEventHandler(TGN_BtnDown);
+                tagNoteBuffer.TagPanel.MouseMove += new MouseEventHandler(TGN_Move);
+                tagNoteBuffer.TagPanel.MouseLeftButtonUp += new MouseButtonEventHandler(TGN_BtnUp);
+                mainCanvas.Children.Add(tagNoteBuffer.TagPanel);
+            }
+
             tool = null;
             NormalizationToolsDrawing();
         }
 
-
-        private void ToTheThumb()
-        {
-            ControlTemplate ct = new ControlTemplate();
-            
-        }
-
         private void TGN_BtnDown(object sender, MouseButtonEventArgs e)
         {
-            var element = sender as FrameworkElement;
-            _anchorPoint = e.GetPosition(null);
-            if (element != null) element.CaptureMouse();
-            _isInDrag = true;
-            e.Handled = true;
-            //tagNoteBuffer.textBox.Text += "1";
+            SPclick = true;
+            el = (UIElement)sender;
+            el.CaptureMouse();
+            locMove = e.GetPosition(mainCanvas);
+            locSP.X = Canvas.GetLeft(el);
+            locSP.Y = Canvas.GetTop(el);
+
+            StackPanel sp = (StackPanel)sender;
+            argMyLine = (from m in ListMyLine
+                         where m._IDLine == sp.Name
+                         select m).FirstOrDefault();
         }
 
         private void TGN_Move(object sender, MouseEventArgs e)
         {
-            if (!_isInDrag) return;
-            _currentPoint = e.GetPosition(null);
+            if (e.LeftButton == MouseButtonState.Pressed && SPclick)
+            {
+                
 
-            _transform.X += _currentPoint.X - _anchorPoint.X;
-            _transform.Y += (_currentPoint.Y - _anchorPoint.Y);
-            mainCanvas.RenderTransform = _transform;
-            _anchorPoint = _currentPoint;
-            //textBox.Text += "2";
+                Point temp = new Point();
+                temp = e.GetPosition(mainCanvas);
+
+                double deltaX = temp.X - locMove.X;
+                double deltaY = temp.Y - locMove.Y;
+
+                Canvas.SetLeft(el, locSP.X + deltaX);
+                Canvas.SetTop(el, locSP.Y + deltaY);
+                locSP.X = Canvas.GetLeft(el);
+                locSP.Y = Canvas.GetTop(el);
+
+                UpdateConnector(argMyLine);
+
+                locMove = temp;
+            }
+        }
+
+        private void UpdateConnector(MyLine argMyLine)
+        {
+            Point argPoint = new Point();
+            argPoint.X = Canvas.GetLeft(argMyLine._TNB.TagPanel);
+            argPoint.Y = Canvas.GetTop(argMyLine._TNB.TagPanel);
+            argMyLine._TheConnector.X2 = argPoint.X;
+            argMyLine._TheConnector.Y2 = argPoint.Y;
+            argMyLine._TheConnector.X1 = staticClass.ConnectorStart(argPoint, argMyLine._TheLine)[0];
+            argMyLine._TheConnector.Y1 = staticClass.ConnectorStart(argPoint, argMyLine._TheLine)[1];
         }
 
         private void TGN_BtnUp(object sender, MouseButtonEventArgs e)
         {
-            if (!_isInDrag) return;
-            var element = sender as FrameworkElement;
-            if (element != null) element.ReleaseMouseCapture();
-            _isInDrag = false;
-            e.Handled = true;
-            //textBox.Text += "3";
+            SPclick = false;
+            el.ReleaseMouseCapture();
+            tagNoteBuffer.TagPoint = locSP;
+            Xceed.Wpf.Toolkit.MessageBox.Show(argMyLine._TNB.TagPanel.Name);
         }
 
         private void NormalizationToolsDrawing()
         {
-            lineBtn.Opacity = circleBtn.Opacity = rectangleBtn.Opacity = 1;
+            lineBtn.Opacity = circleBtn.Opacity = rectangleBtn.Opacity = 0.6;
         }
 
         private void LineBtnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -148,7 +163,7 @@ namespace WPF_DCupNote
             if (tool != "Line")
             {
                 tool = "Line";
-                lineBtn.Opacity = 0.6;
+                lineBtn.Opacity = 1;
             }
             else
                 tool = null;
@@ -161,7 +176,7 @@ namespace WPF_DCupNote
             if (tool != "Rectangle")
             {
                 tool = "Rectangle";
-                rectangleBtn.Opacity = 0.6;
+                rectangleBtn.Opacity = 1;
             }
             else
                 tool = null;
@@ -174,7 +189,7 @@ namespace WPF_DCupNote
             if (tool != "Circle")
             {
                 tool = "Circle";
-                circleBtn.Opacity = 0.6;
+                circleBtn.Opacity = 1;
             }
             else
                 tool = null;

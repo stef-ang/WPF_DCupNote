@@ -15,9 +15,9 @@
             <Image x:Name="newBtn" Height="50" Margin="15,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon new.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="newBtn_MouseLeftButtonUp" />
             <Image x:Name="openBtn" Height="50" Margin="10,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon open.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="openBtn_MouseLeftButtonUp" />
             <Image x:Name="clearBtn" Height="50" Margin="10,10,0,0" Width="93" Panel.ZIndex="1" Source="Icon/icon clear.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" MouseLeftButtonUp="clearBtn_MouseLeftButtonUp" />
-            <Image x:Name="circleBtn" Height="63" Margin="40,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon circle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
-            <Image x:Name="rectangleBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon rectangle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
-            <Image x:Name="lineBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon line.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" />
+            <Image x:Name="circleBtn" Height="63" Margin="40,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon circle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Opacity="0.6"/>
+            <Image x:Name="rectangleBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon rectangle.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Opacity="0.6"/>
+            <Image x:Name="lineBtn" Height="63" Margin="10,5,0,0" Width="63" Panel.ZIndex="1" Source="Icon/icon line.png" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Opacity="0.6"/>
             <StackPanel Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Orientation="Vertical">
                 <TextBlock Text="Color:" FontWeight="Bold" FontStyle="Italic" FontSize="18" Foreground="#FF7B3F00"/>
                 <xctk:ColorPicker x:Name="colPicker" Width="150" DisplayColorAndName="True" FontSize="16"/>
@@ -50,11 +50,15 @@
             <TextBlock HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="226" Margin="5,5,0,0"/>
         </GroupBox>
 
-        <Canvas x:Name="mainCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFF7EBDE" Grid.Row="1">
+        <Canvas x:Name="mainCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+            <Canvas.Background>
+                <ImageBrush ImageSource="Icon/footer.png" Stretch="Uniform" AlignmentY="Bottom" Opacity="0.3"/>
+            </Canvas.Background>
             <!--<Image x:Name="mainImage" Height="100" Canvas.Left="324" Canvas.Top="134" Width="100" Panel.ZIndex="1" Source="E:\123.png"/>-->
         </Canvas>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="d'Cupnote" Grid.Row="0" FontWeight="Bold" FontSize="20" FontStyle="Italic"/>
-
+        <Grid Grid.Row="0" Background="#FFCBBA8B">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="d'Cupnote" FontWeight="Bold" FontSize="20" FontStyle="Italic"/>
+        </Grid>
 
 
     </Grid>

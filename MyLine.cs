@@ -21,16 +21,7 @@ namespace WPF_DCupNote
         public string _IDLine;
         public Line _TheLine;
         public Line _TheConnector;
-        public TagNoteBuffer _TGN;
-        //public Point _TagPoint;
-        //public StackPanel _TagPanel;
-        //public TextBox textBox;
-        //public Canvas _mainCanvas;
-
-        //Point _anchorPoint;
-        //Point _currentPoint;
-        //bool _isInDrag;
-        //private readonly TranslateTransform _transform = new TranslateTransform();
+        public TagNoteBuffer _TNB;
 
         public MyLine(Point start, Point end, double thickness, Brush color)
         {
@@ -60,7 +51,6 @@ namespace WPF_DCupNote
                 _TheLine.Y2 = end.Y;
                 _TheLine.StrokeThickness = thickness;
                 _TheLine.Stroke = color;
-                _TheConnector = new Line();
             }
             catch (Exception x)
             {
@@ -68,113 +58,23 @@ namespace WPF_DCupNote
             }
         }
 
-        //public void AddTag(Canvas mainCanvas)
-        //{
-        //    _TagPoint = new Point();
-        //    _TagPanel = new StackPanel();
-        //    _TagPanel.Orientation = Orientation.Vertical;
-        //    _TagPanel.Width = 200;
-        //    _TagPanel.Background = Brushes.AliceBlue;
+        public void DrawConnector()
+        {
+            _TheConnector = new Line();
 
-        //    StackPanel headerTP = new StackPanel();
-        //    headerTP.Orientation = Orientation.Horizontal;
-        //    headerTP.FlowDirection = FlowDirection.RightToLeft;
-        //    headerTP.Background = Brushes.Blue;
-        //    headerTP.Name = _IDLine;
-        //    headerTP.MouseLeftButtonDown += new MouseButtonEventHandler(headerTP_LeftBtnDown);
-        //    headerTP.MouseMove += new MouseEventHandler(headerTP_Move);
-        //    headerTP.MouseLeftButtonUp += new MouseButtonEventHandler(headerTP_LeftBtnUp);
-        //    _mainCanvas = mainCanvas;
+            Point cek = new Point();
+            //cek.X = Canvas.GetLeft(_TNB.TagPanel);
+            //cek.Y = Canvas.GetTop(_TNB.TagPanel);
+            cek.X = _TNB.TagPoint.X;
+            cek.Y = _TNB.TagPoint.Y;
 
-        //    Button delBtn = new Button();
-        //    delBtn.Name = _IDLine;
-        //    delBtn.Content = "X";
-        //    delBtn.FontWeight = FontWeights.Bold;
-        //    delBtn.Width = delBtn.Height = 23;
-        //    delBtn.FontSize = 12;
-        //    delBtn.Click += delBtn_Click;
-
-        //    Button editSaveBtn = new Button();
-        //    editSaveBtn.Name = _IDLine;
-        //    editSaveBtn.Content = "V";
-        //    editSaveBtn.FontWeight = FontWeights.Bold;
-        //    editSaveBtn.Width = delBtn.Height = 23;
-        //    editSaveBtn.FontSize = 12;
-        //    editSaveBtn.Click += editSaveBtn_Click;
-
-        //    Button transparentBtn = new Button();
-        //    transparentBtn.Name = _IDLine;
-        //    transparentBtn.Content = "_";
-        //    transparentBtn.FontWeight = FontWeights.Bold;
-        //    transparentBtn.Width = delBtn.Height = 23;
-        //    transparentBtn.FontSize = 12;
-        //    transparentBtn.Click += transparentBtn_Click;
-
-        //    headerTP.Children.Add(delBtn);
-        //    headerTP.Children.Add(editSaveBtn);
-        //    headerTP.Children.Add(transparentBtn);
-
-        //    _TagPanel.Children.Add(headerTP);
-
-        //    textBox = new TextBox();
-        //    textBox.Height = 23;
-        //    textBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-
-        //    _TagPanel.Children.Add(textBox);
-
-        //    mainCanvas.Children.Add(_TagPanel); // kl gbs return type fungsi ini diubah jadi StackPanel
-        //    Canvas.SetLeft(_TagPanel, _TheLine.X2);
-        //    Canvas.SetTop(_TagPanel, _TheLine.Y2);
-        //    Canvas.SetZIndex(_TagPanel, 2);
-        //}
-
-        //private void headerTP_LeftBtnUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (!_isInDrag) return;
-        //    var element = sender as FrameworkElement;
-        //    if (element != null) element.ReleaseMouseCapture();
-        //    _isInDrag = false;
-        //    e.Handled = true;
-        //    textBox.Text += "3";
-        //}
-
-        //private void headerTP_LeftBtnDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    var element = sender as FrameworkElement;
-        //    _anchorPoint = e.GetPosition(null);
-        //    if (element != null) element.CaptureMouse();
-        //    _isInDrag = true;
-        //    e.Handled = true;
-        //    textBox.Text += "1";
-        //}
-
-        //private void headerTP_Move(object sender, MouseEventArgs e)
-        //{
-        //    if (!_isInDrag) return;
-        //    _currentPoint = e.GetPosition(null);
-
-        //    _transform.X += _currentPoint.X - _anchorPoint.X;
-        //    _transform.Y += (_currentPoint.Y - _anchorPoint.Y);
-        //    RenderTransform = _transform;
-        //    _anchorPoint = _currentPoint;
-        //    textBox.Text += "2";
-        //}
-
-        //private void transparentBtn_Click(object sender, RoutedEventArgs e)
-        //{
-
-            
-        //}
-
-        //private void editSaveBtn_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
-
-        //private void delBtn_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
+            _TheConnector.X2 = cek.X;
+            _TheConnector.Y2 = cek.Y;
+            _TheConnector.X1 = staticClass.ConnectorStart(cek, _TheLine)[0];
+            _TheConnector.Y1 = staticClass.ConnectorStart(cek, _TheLine)[1];
+            _TheConnector.StrokeThickness = 1.0;
+            _TheConnector.Stroke = _TheLine.Stroke;
+        }
 
         
     }

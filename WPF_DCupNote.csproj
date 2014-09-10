@@ -78,6 +78,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="MyEllipse.cs" />
+    <Compile Include="staticClass.cs" />
     <Compile Include="TagNoteBuffer.cs" />
     <Page Include="cekOnly.xaml">
       <SubType>Designer</SubType>
@@ -100,7 +102,7 @@
       <DependentUpon>DCNDataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.DrawingTools.cs" />
-    <Compile Include="MainWindow.Partial1.cs" />
+    <Compile Include="MainWindow.Attribute.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -160,7 +162,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CounterID.txt" />
+    <Resource Include="Icon\footer.png" />
     <Resource Include="CounterID.xml" />
     <Content Include="dcupnoteDatabase.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

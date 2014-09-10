@@ -22,12 +22,6 @@ namespace WPF_DCupNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        DCNDataClassesDataContext DDC;
-        dCupnote dcnOpen;
-        BitmapImage imageOpen;
-        Size viewSize;
-        List<MyLine> ListMyLine;
-
         public MainWindow()
         {
             InitializeComponent();

@@ -11,7 +11,6 @@ namespace WPF_DCupNote
 {
     class TagNoteBuffer
     {
-        public string IDTagNote;
         public Point TagPoint;
         public StackPanel TagPanel;
         public StackPanel headerTP;
@@ -22,8 +21,6 @@ namespace WPF_DCupNote
 
         public TagNoteBuffer(string ID, double X, double Y)
         {
-            IDTagNote = ID;
-
             TagPoint = new Point();
             TagPanel = new StackPanel();
             headerTP = new StackPanel();
@@ -32,34 +29,34 @@ namespace WPF_DCupNote
             editSaveBtn = new Button();
             transparentBtn = new Button();
 
-            TagPoint.X = X;
+            TagPoint.X = X + 20;
             TagPoint.Y = Y;
 
             TagPanel.Orientation = Orientation.Vertical;
             TagPanel.Width = 200;
             TagPanel.Background = Brushes.AliceBlue;
-            TagPanel.Name = IDTagNote;
+            TagPanel.Name = ID;
 
             headerTP.Orientation = Orientation.Horizontal;
             headerTP.FlowDirection = FlowDirection.RightToLeft;
-            headerTP.Background = Brushes.Blue;
-            headerTP.Name = IDTagNote;
+            //headerTP.Background = Brushes.Blue;
+            headerTP.Name = ID;
 
-            delBtn.Name = IDTagNote;
+            delBtn.Name = ID;
             delBtn.Content = "X";
             delBtn.FontWeight = FontWeights.Bold;
             delBtn.Width = delBtn.Height = 23;
             delBtn.FontSize = 12;
             delBtn.Click += delBtn_Click;
 
-            editSaveBtn.Name = IDTagNote;
+            editSaveBtn.Name = ID;
             editSaveBtn.Content = "V";
             editSaveBtn.FontWeight = FontWeights.Bold;
             editSaveBtn.Width = editSaveBtn.Height = 23;
             editSaveBtn.FontSize = 12;
             editSaveBtn.Click += editSaveBtn_Click;
 
-            transparentBtn.Name = IDTagNote;
+            transparentBtn.Name = ID;
             transparentBtn.Content = "_";
             transparentBtn.FontWeight = FontWeights.Bold;
             transparentBtn.Width = transparentBtn.Height = 23;
@@ -93,7 +90,8 @@ namespace WPF_DCupNote
 
         private void delBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            //Button btn = (Button)sender;
+            //Xceed.Wpf.Toolkit.MessageBox.Show(btn.Parent.ToString());
         }
     }
 }
