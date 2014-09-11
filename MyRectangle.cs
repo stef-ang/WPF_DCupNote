@@ -11,34 +11,34 @@ using System.Xml;
 
 namespace WPF_DCupNote
 {
-    public class MyEllipse
+    public class MyRectangle
     {
-        public string _IDEllipse;
-        public Ellipse _TheEllipse;
-        public Point _StartLocE;
-        public Point _CenterLocE;   // center point
+        public string _IDRectangle;
+        public Rectangle _TheRectangle;
+        public Point _StartLocR;
+        public Point _CenterLocR;
         public Line _TheConnector;
         public TagNoteBuffer _TNB;
 
-        public MyEllipse(Point start, double thickness, Brush color)
+        public MyRectangle(Point start, double thickness, Brush color)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("CounterID.xml");
-            XmlNode node = doc.SelectSingleNode("/Counter/CircleID");
+            XmlNode node = doc.SelectSingleNode("/Counter/RectangleID");
             if (node != null)
             {
                 int result = Convert.ToInt32(node.InnerText);
-                _IDEllipse = "E" + (result++).ToString();
+                _IDRectangle = "R" + (result++).ToString();
                 node.InnerText = result.ToString();
             }
             doc.Save("CounterID.xml");
             doc = null;
 
-            _TheEllipse = new Ellipse();
-            _TheEllipse.StrokeThickness = thickness;
-            _TheEllipse.Stroke = color;
+            _TheRectangle = new Rectangle();
+            _TheRectangle.StrokeThickness = thickness;
+            _TheRectangle.Stroke = color;
 
-            _StartLocE = start;
+            _StartLocR = start;
         }
 
         public void DrawConnector()
@@ -47,12 +47,13 @@ namespace WPF_DCupNote
 
             _TheConnector.X2 = _TNB.TagPoint.X;
             _TheConnector.Y2 = _TNB.TagPoint.Y;
-            _TheConnector.X1 = _CenterLocE.X + (_TheEllipse.Width / 2);
-            _TheConnector.Y1 = _CenterLocE.Y;
+            _TheConnector.X1 = _CenterLocR.X + (_TheRectangle.Width / 2);
+            _TheConnector.Y1 = _CenterLocR.Y - (_TheRectangle.Height / 2);
             _TheConnector.StrokeThickness = 1.0;
-            _TheConnector.Stroke = _TheEllipse.Stroke;
+            _TheConnector.Stroke = _TheRectangle.Stroke;
 
             Canvas.SetZIndex(_TheConnector, 1);
         }
     }
 }
+

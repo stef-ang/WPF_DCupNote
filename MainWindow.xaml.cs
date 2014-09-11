@@ -30,6 +30,8 @@ namespace WPF_DCupNote
             InitializeCanvas();
             InitializeToolsDrawing();
             ListMyLine = new List<MyLine>();
+            ListMyEllipse = new List<MyEllipse>();
+            ListMyRectangle = new List<MyRectangle>();
         }
 
         private void InitializeToolsDrawing()
@@ -62,7 +64,7 @@ namespace WPF_DCupNote
                 if (dcnOpen.Image != null)
                 {
                     mainCanvas.Children.Clear();
-                    Image mainImage = new Image();
+                    mainImage = new Image();
                     imageOpen = ByteArrayToImage(dcnOpen.Image.ToArray());
 
                     mainCanvas.Children.Add(mainImage);
@@ -80,6 +82,7 @@ namespace WPF_DCupNote
                     mainImage.Stretch = Stretch.UniformToFill;
                     mainImage.Source = imageOpen;
                 }
+                saveDashboard.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -136,11 +139,18 @@ namespace WPF_DCupNote
         private void clearBtn_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             mainCanvas.Children.Clear();
+            mainImage = null;
+            saveDashboard.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void minimizeBtn_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        private void saveDashboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
     }

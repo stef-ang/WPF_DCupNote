@@ -36,12 +36,12 @@ namespace WPF_DCupNote
     partial void InsertLineTag(LineTag instance);
     partial void UpdateLineTag(LineTag instance);
     partial void DeleteLineTag(LineTag instance);
-    partial void InsertEllipseTag(EllipseTag instance);
-    partial void UpdateEllipseTag(EllipseTag instance);
-    partial void DeleteEllipseTag(EllipseTag instance);
     partial void InsertRectangleTag(RectangleTag instance);
     partial void UpdateRectangleTag(RectangleTag instance);
     partial void DeleteRectangleTag(RectangleTag instance);
+    partial void InsertEllipseTag(EllipseTag instance);
+    partial void UpdateEllipseTag(EllipseTag instance);
+    partial void DeleteEllipseTag(EllipseTag instance);
     #endregion
 		
 		public DCNDataClassesDataContext() : 
@@ -90,19 +90,19 @@ namespace WPF_DCupNote
 			}
 		}
 		
-		public System.Data.Linq.Table<EllipseTag> EllipseTags
-		{
-			get
-			{
-				return this.GetTable<EllipseTag>();
-			}
-		}
-		
 		public System.Data.Linq.Table<RectangleTag> RectangleTags
 		{
 			get
 			{
 				return this.GetTable<RectangleTag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<EllipseTag> EllipseTags
+		{
+			get
+			{
+				return this.GetTable<EllipseTag>();
 			}
 		}
 	}
@@ -123,9 +123,9 @@ namespace WPF_DCupNote
 		
 		private EntitySet<LineTag> _LineTags;
 		
-		private EntitySet<EllipseTag> _EllipseTags;
-		
 		private EntitySet<RectangleTag> _RectangleTags;
+		
+		private EntitySet<EllipseTag> _EllipseTags;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -144,8 +144,8 @@ namespace WPF_DCupNote
 		public dCupnote()
 		{
 			this._LineTags = new EntitySet<LineTag>(new Action<LineTag>(this.attach_LineTags), new Action<LineTag>(this.detach_LineTags));
-			this._EllipseTags = new EntitySet<EllipseTag>(new Action<EllipseTag>(this.attach_EllipseTags), new Action<EllipseTag>(this.detach_EllipseTags));
 			this._RectangleTags = new EntitySet<RectangleTag>(new Action<RectangleTag>(this.attach_RectangleTags), new Action<RectangleTag>(this.detach_RectangleTags));
+			this._EllipseTags = new EntitySet<EllipseTag>(new Action<EllipseTag>(this.attach_EllipseTags), new Action<EllipseTag>(this.detach_EllipseTags));
 			OnCreated();
 		}
 		
@@ -242,19 +242,6 @@ namespace WPF_DCupNote
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="dCupnote_EllipseTag", Storage="_EllipseTags", ThisKey="ID_DCN", OtherKey="ID_DCN")]
-		public EntitySet<EllipseTag> EllipseTags
-		{
-			get
-			{
-				return this._EllipseTags;
-			}
-			set
-			{
-				this._EllipseTags.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="dCupnote_RectangleTag", Storage="_RectangleTags", ThisKey="ID_DCN", OtherKey="ID_DCN")]
 		public EntitySet<RectangleTag> RectangleTags
 		{
@@ -265,6 +252,19 @@ namespace WPF_DCupNote
 			set
 			{
 				this._RectangleTags.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="dCupnote_EllipseTag", Storage="_EllipseTags", ThisKey="ID_DCN", OtherKey="ID_DCN")]
+		public EntitySet<EllipseTag> EllipseTags
+		{
+			get
+			{
+				return this._EllipseTags;
+			}
+			set
+			{
+				this._EllipseTags.Assign(value);
 			}
 		}
 		
@@ -300,18 +300,6 @@ namespace WPF_DCupNote
 			entity.dCupnote = null;
 		}
 		
-		private void attach_EllipseTags(EllipseTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.dCupnote = this;
-		}
-		
-		private void detach_EllipseTags(EllipseTag entity)
-		{
-			this.SendPropertyChanging();
-			entity.dCupnote = null;
-		}
-		
 		private void attach_RectangleTags(RectangleTag entity)
 		{
 			this.SendPropertyChanging();
@@ -319,6 +307,18 @@ namespace WPF_DCupNote
 		}
 		
 		private void detach_RectangleTags(RectangleTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.dCupnote = null;
+		}
+		
+		private void attach_EllipseTags(EllipseTag entity)
+		{
+			this.SendPropertyChanging();
+			entity.dCupnote = this;
+		}
+		
+		private void detach_EllipseTags(EllipseTag entity)
 		{
 			this.SendPropertyChanging();
 			entity.dCupnote = null;
@@ -337,8 +337,6 @@ namespace WPF_DCupNote
 		
 		private string _Note_LT;
 		
-		private int _counter_LT;
-		
 		private double _x1_LT;
 		
 		private double _y1_LT;
@@ -347,7 +345,7 @@ namespace WPF_DCupNote
 		
 		private double _y2_LT;
 		
-		private int _thickness_LT;
+		private double _thickness_LT;
 		
 		private string _color_LT;
 		
@@ -375,8 +373,6 @@ namespace WPF_DCupNote
     partial void OnID_DCNChanged();
     partial void OnNote_LTChanging(string value);
     partial void OnNote_LTChanged();
-    partial void Oncounter_LTChanging(int value);
-    partial void Oncounter_LTChanged();
     partial void Onx1_LTChanging(double value);
     partial void Onx1_LTChanged();
     partial void Ony1_LTChanging(double value);
@@ -385,7 +381,7 @@ namespace WPF_DCupNote
     partial void Onx2_LTChanged();
     partial void Ony2_LTChanging(double value);
     partial void Ony2_LTChanged();
-    partial void Onthickness_LTChanging(int value);
+    partial void Onthickness_LTChanging(double value);
     partial void Onthickness_LTChanged();
     partial void Oncolor_LTChanging(string value);
     partial void Oncolor_LTChanged();
@@ -473,26 +469,6 @@ namespace WPF_DCupNote
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counter_LT", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int counter_LT
-		{
-			get
-			{
-				return this._counter_LT;
-			}
-			set
-			{
-				if ((this._counter_LT != value))
-				{
-					this.Oncounter_LTChanging(value);
-					this.SendPropertyChanging();
-					this._counter_LT = value;
-					this.SendPropertyChanged("counter_LT");
-					this.Oncounter_LTChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_x1_LT", DbType="Float NOT NULL")]
 		public double x1_LT
 		{
@@ -573,8 +549,8 @@ namespace WPF_DCupNote
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_LT", DbType="Int NOT NULL")]
-		public int thickness_LT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_LT", DbType="Float NOT NULL")]
+		public double thickness_LT
 		{
 			get
 			{
@@ -788,469 +764,6 @@ namespace WPF_DCupNote
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EllipseTag")]
-	public partial class EllipseTag : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _ID_ET;
-		
-		private string _ID_DCN;
-		
-		private string _Note_ET;
-		
-		private int _counter_ET;
-		
-		private double _x_ET;
-		
-		private double _y_ET;
-		
-		private int _wight_ET;
-		
-		private int _height_ET;
-		
-		private int _thickness_ET;
-		
-		private string _color_ET;
-		
-		private double _connector_x1_ET;
-		
-		private double _connector_y1_ET;
-		
-		private double _connector_x2_ET;
-		
-		private double _connector_y2_ET;
-		
-		private bool _connector_hidden_ET;
-		
-		private bool _ellipse_hidden;
-		
-		private EntityRef<dCupnote> _dCupnote;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnID_ETChanging(string value);
-    partial void OnID_ETChanged();
-    partial void OnID_DCNChanging(string value);
-    partial void OnID_DCNChanged();
-    partial void OnNote_ETChanging(string value);
-    partial void OnNote_ETChanged();
-    partial void Oncounter_ETChanging(int value);
-    partial void Oncounter_ETChanged();
-    partial void Onx_ETChanging(double value);
-    partial void Onx_ETChanged();
-    partial void Ony_ETChanging(double value);
-    partial void Ony_ETChanged();
-    partial void Onwight_ETChanging(int value);
-    partial void Onwight_ETChanged();
-    partial void Onheight_ETChanging(int value);
-    partial void Onheight_ETChanged();
-    partial void Onthickness_ETChanging(int value);
-    partial void Onthickness_ETChanged();
-    partial void Oncolor_ETChanging(string value);
-    partial void Oncolor_ETChanged();
-    partial void Onconnector_x1_ETChanging(double value);
-    partial void Onconnector_x1_ETChanged();
-    partial void Onconnector_y1_ETChanging(double value);
-    partial void Onconnector_y1_ETChanged();
-    partial void Onconnector_x2_ETChanging(double value);
-    partial void Onconnector_x2_ETChanged();
-    partial void Onconnector_y2_ETChanging(double value);
-    partial void Onconnector_y2_ETChanged();
-    partial void Onconnector_hidden_ETChanging(bool value);
-    partial void Onconnector_hidden_ETChanged();
-    partial void Onellipse_hiddenChanging(bool value);
-    partial void Onellipse_hiddenChanged();
-    #endregion
-		
-		public EllipseTag()
-		{
-			this._dCupnote = default(EntityRef<dCupnote>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_ET", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string ID_ET
-		{
-			get
-			{
-				return this._ID_ET;
-			}
-			set
-			{
-				if ((this._ID_ET != value))
-				{
-					this.OnID_ETChanging(value);
-					this.SendPropertyChanging();
-					this._ID_ET = value;
-					this.SendPropertyChanged("ID_ET");
-					this.OnID_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_DCN", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string ID_DCN
-		{
-			get
-			{
-				return this._ID_DCN;
-			}
-			set
-			{
-				if ((this._ID_DCN != value))
-				{
-					if (this._dCupnote.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnID_DCNChanging(value);
-					this.SendPropertyChanging();
-					this._ID_DCN = value;
-					this.SendPropertyChanged("ID_DCN");
-					this.OnID_DCNChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note_ET", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Note_ET
-		{
-			get
-			{
-				return this._Note_ET;
-			}
-			set
-			{
-				if ((this._Note_ET != value))
-				{
-					this.OnNote_ETChanging(value);
-					this.SendPropertyChanging();
-					this._Note_ET = value;
-					this.SendPropertyChanged("Note_ET");
-					this.OnNote_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counter_ET", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int counter_ET
-		{
-			get
-			{
-				return this._counter_ET;
-			}
-			set
-			{
-				if ((this._counter_ET != value))
-				{
-					this.Oncounter_ETChanging(value);
-					this.SendPropertyChanging();
-					this._counter_ET = value;
-					this.SendPropertyChanged("counter_ET");
-					this.Oncounter_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_x_ET", DbType="Float NOT NULL")]
-		public double x_ET
-		{
-			get
-			{
-				return this._x_ET;
-			}
-			set
-			{
-				if ((this._x_ET != value))
-				{
-					this.Onx_ETChanging(value);
-					this.SendPropertyChanging();
-					this._x_ET = value;
-					this.SendPropertyChanged("x_ET");
-					this.Onx_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_y_ET", DbType="Float NOT NULL")]
-		public double y_ET
-		{
-			get
-			{
-				return this._y_ET;
-			}
-			set
-			{
-				if ((this._y_ET != value))
-				{
-					this.Ony_ETChanging(value);
-					this.SendPropertyChanging();
-					this._y_ET = value;
-					this.SendPropertyChanged("y_ET");
-					this.Ony_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wight_ET", DbType="Int NOT NULL")]
-		public int wight_ET
-		{
-			get
-			{
-				return this._wight_ET;
-			}
-			set
-			{
-				if ((this._wight_ET != value))
-				{
-					this.Onwight_ETChanging(value);
-					this.SendPropertyChanging();
-					this._wight_ET = value;
-					this.SendPropertyChanged("wight_ET");
-					this.Onwight_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_height_ET", DbType="Int NOT NULL")]
-		public int height_ET
-		{
-			get
-			{
-				return this._height_ET;
-			}
-			set
-			{
-				if ((this._height_ET != value))
-				{
-					this.Onheight_ETChanging(value);
-					this.SendPropertyChanging();
-					this._height_ET = value;
-					this.SendPropertyChanged("height_ET");
-					this.Onheight_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_ET", DbType="Int NOT NULL")]
-		public int thickness_ET
-		{
-			get
-			{
-				return this._thickness_ET;
-			}
-			set
-			{
-				if ((this._thickness_ET != value))
-				{
-					this.Onthickness_ETChanging(value);
-					this.SendPropertyChanging();
-					this._thickness_ET = value;
-					this.SendPropertyChanged("thickness_ET");
-					this.Onthickness_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color_ET", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string color_ET
-		{
-			get
-			{
-				return this._color_ET;
-			}
-			set
-			{
-				if ((this._color_ET != value))
-				{
-					this.Oncolor_ETChanging(value);
-					this.SendPropertyChanging();
-					this._color_ET = value;
-					this.SendPropertyChanged("color_ET");
-					this.Oncolor_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_x1_ET", DbType="Float NOT NULL")]
-		public double connector_x1_ET
-		{
-			get
-			{
-				return this._connector_x1_ET;
-			}
-			set
-			{
-				if ((this._connector_x1_ET != value))
-				{
-					this.Onconnector_x1_ETChanging(value);
-					this.SendPropertyChanging();
-					this._connector_x1_ET = value;
-					this.SendPropertyChanged("connector_x1_ET");
-					this.Onconnector_x1_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_y1_ET", DbType="Float NOT NULL")]
-		public double connector_y1_ET
-		{
-			get
-			{
-				return this._connector_y1_ET;
-			}
-			set
-			{
-				if ((this._connector_y1_ET != value))
-				{
-					this.Onconnector_y1_ETChanging(value);
-					this.SendPropertyChanging();
-					this._connector_y1_ET = value;
-					this.SendPropertyChanged("connector_y1_ET");
-					this.Onconnector_y1_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_x2_ET", DbType="Float NOT NULL")]
-		public double connector_x2_ET
-		{
-			get
-			{
-				return this._connector_x2_ET;
-			}
-			set
-			{
-				if ((this._connector_x2_ET != value))
-				{
-					this.Onconnector_x2_ETChanging(value);
-					this.SendPropertyChanging();
-					this._connector_x2_ET = value;
-					this.SendPropertyChanged("connector_x2_ET");
-					this.Onconnector_x2_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_y2_ET", DbType="Float NOT NULL")]
-		public double connector_y2_ET
-		{
-			get
-			{
-				return this._connector_y2_ET;
-			}
-			set
-			{
-				if ((this._connector_y2_ET != value))
-				{
-					this.Onconnector_y2_ETChanging(value);
-					this.SendPropertyChanging();
-					this._connector_y2_ET = value;
-					this.SendPropertyChanged("connector_y2_ET");
-					this.Onconnector_y2_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_hidden_ET", DbType="Bit NOT NULL")]
-		public bool connector_hidden_ET
-		{
-			get
-			{
-				return this._connector_hidden_ET;
-			}
-			set
-			{
-				if ((this._connector_hidden_ET != value))
-				{
-					this.Onconnector_hidden_ETChanging(value);
-					this.SendPropertyChanging();
-					this._connector_hidden_ET = value;
-					this.SendPropertyChanged("connector_hidden_ET");
-					this.Onconnector_hidden_ETChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ellipse_hidden", DbType="Bit NOT NULL")]
-		public bool ellipse_hidden
-		{
-			get
-			{
-				return this._ellipse_hidden;
-			}
-			set
-			{
-				if ((this._ellipse_hidden != value))
-				{
-					this.Onellipse_hiddenChanging(value);
-					this.SendPropertyChanging();
-					this._ellipse_hidden = value;
-					this.SendPropertyChanged("ellipse_hidden");
-					this.Onellipse_hiddenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="dCupnote_EllipseTag", Storage="_dCupnote", ThisKey="ID_DCN", OtherKey="ID_DCN", IsForeignKey=true)]
-		public dCupnote dCupnote
-		{
-			get
-			{
-				return this._dCupnote.Entity;
-			}
-			set
-			{
-				dCupnote previousValue = this._dCupnote.Entity;
-				if (((previousValue != value) 
-							|| (this._dCupnote.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._dCupnote.Entity = null;
-						previousValue.EllipseTags.Remove(this);
-					}
-					this._dCupnote.Entity = value;
-					if ((value != null))
-					{
-						value.EllipseTags.Add(this);
-						this._ID_DCN = value.ID_DCN;
-					}
-					else
-					{
-						this._ID_DCN = default(string);
-					}
-					this.SendPropertyChanged("dCupnote");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RectangleTag")]
 	public partial class RectangleTag : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1263,17 +776,19 @@ namespace WPF_DCupNote
 		
 		private string _Note_RT;
 		
-		private int _counter_RT;
+		private double _startLocX_RT;
 		
-		private double _x1_RT;
+		private double _startLocY_RT;
 		
-		private double _y1_RT;
+		private double _centerLocX_RT;
 		
-		private double _x2_RT;
+		private double _centerLocY_RT;
 		
-		private double _y2_RT;
+		private double _wight_RT;
 		
-		private int _thickness_RT;
+		private double _height_RT;
+		
+		private double _thickness_RT;
 		
 		private string _color_RT;
 		
@@ -1301,17 +816,19 @@ namespace WPF_DCupNote
     partial void OnID_DCNChanged();
     partial void OnNote_RTChanging(string value);
     partial void OnNote_RTChanged();
-    partial void Oncounter_RTChanging(int value);
-    partial void Oncounter_RTChanged();
-    partial void Onx1_RTChanging(double value);
-    partial void Onx1_RTChanged();
-    partial void Ony1_RTChanging(double value);
-    partial void Ony1_RTChanged();
-    partial void Onx2_RTChanging(double value);
-    partial void Onx2_RTChanged();
-    partial void Ony2_RTChanging(double value);
-    partial void Ony2_RTChanged();
-    partial void Onthickness_RTChanging(int value);
+    partial void OnstartLocX_RTChanging(double value);
+    partial void OnstartLocX_RTChanged();
+    partial void OnstartLocY_RTChanging(double value);
+    partial void OnstartLocY_RTChanged();
+    partial void OncenterLocX_RTChanging(double value);
+    partial void OncenterLocX_RTChanged();
+    partial void OncenterLocY_RTChanging(double value);
+    partial void OncenterLocY_RTChanged();
+    partial void Onwight_RTChanging(double value);
+    partial void Onwight_RTChanged();
+    partial void Onheight_RTChanging(double value);
+    partial void Onheight_RTChanged();
+    partial void Onthickness_RTChanging(double value);
     partial void Onthickness_RTChanged();
     partial void Oncolor_RTChanging(string value);
     partial void Oncolor_RTChanged();
@@ -1399,108 +916,128 @@ namespace WPF_DCupNote
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_counter_RT", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int counter_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startLocX_RT", DbType="Float NOT NULL")]
+		public double startLocX_RT
 		{
 			get
 			{
-				return this._counter_RT;
+				return this._startLocX_RT;
 			}
 			set
 			{
-				if ((this._counter_RT != value))
+				if ((this._startLocX_RT != value))
 				{
-					this.Oncounter_RTChanging(value);
+					this.OnstartLocX_RTChanging(value);
 					this.SendPropertyChanging();
-					this._counter_RT = value;
-					this.SendPropertyChanged("counter_RT");
-					this.Oncounter_RTChanged();
+					this._startLocX_RT = value;
+					this.SendPropertyChanged("startLocX_RT");
+					this.OnstartLocX_RTChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_x1_RT", DbType="Float NOT NULL")]
-		public double x1_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startLocY_RT", DbType="Float NOT NULL")]
+		public double startLocY_RT
 		{
 			get
 			{
-				return this._x1_RT;
+				return this._startLocY_RT;
 			}
 			set
 			{
-				if ((this._x1_RT != value))
+				if ((this._startLocY_RT != value))
 				{
-					this.Onx1_RTChanging(value);
+					this.OnstartLocY_RTChanging(value);
 					this.SendPropertyChanging();
-					this._x1_RT = value;
-					this.SendPropertyChanged("x1_RT");
-					this.Onx1_RTChanged();
+					this._startLocY_RT = value;
+					this.SendPropertyChanged("startLocY_RT");
+					this.OnstartLocY_RTChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_y1_RT", DbType="Float NOT NULL")]
-		public double y1_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_centerLocX_RT", DbType="Float NOT NULL")]
+		public double centerLocX_RT
 		{
 			get
 			{
-				return this._y1_RT;
+				return this._centerLocX_RT;
 			}
 			set
 			{
-				if ((this._y1_RT != value))
+				if ((this._centerLocX_RT != value))
 				{
-					this.Ony1_RTChanging(value);
+					this.OncenterLocX_RTChanging(value);
 					this.SendPropertyChanging();
-					this._y1_RT = value;
-					this.SendPropertyChanged("y1_RT");
-					this.Ony1_RTChanged();
+					this._centerLocX_RT = value;
+					this.SendPropertyChanged("centerLocX_RT");
+					this.OncenterLocX_RTChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_x2_RT", DbType="Float NOT NULL")]
-		public double x2_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_centerLocY_RT", DbType="Float NOT NULL")]
+		public double centerLocY_RT
 		{
 			get
 			{
-				return this._x2_RT;
+				return this._centerLocY_RT;
 			}
 			set
 			{
-				if ((this._x2_RT != value))
+				if ((this._centerLocY_RT != value))
 				{
-					this.Onx2_RTChanging(value);
+					this.OncenterLocY_RTChanging(value);
 					this.SendPropertyChanging();
-					this._x2_RT = value;
-					this.SendPropertyChanged("x2_RT");
-					this.Onx2_RTChanged();
+					this._centerLocY_RT = value;
+					this.SendPropertyChanged("centerLocY_RT");
+					this.OncenterLocY_RTChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_y2_RT", DbType="Float NOT NULL")]
-		public double y2_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wight_RT", DbType="Float NOT NULL")]
+		public double wight_RT
 		{
 			get
 			{
-				return this._y2_RT;
+				return this._wight_RT;
 			}
 			set
 			{
-				if ((this._y2_RT != value))
+				if ((this._wight_RT != value))
 				{
-					this.Ony2_RTChanging(value);
+					this.Onwight_RTChanging(value);
 					this.SendPropertyChanging();
-					this._y2_RT = value;
-					this.SendPropertyChanged("y2_RT");
-					this.Ony2_RTChanged();
+					this._wight_RT = value;
+					this.SendPropertyChanged("wight_RT");
+					this.Onwight_RTChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_RT", DbType="Int NOT NULL")]
-		public int thickness_RT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_height_RT", DbType="Float NOT NULL")]
+		public double height_RT
+		{
+			get
+			{
+				return this._height_RT;
+			}
+			set
+			{
+				if ((this._height_RT != value))
+				{
+					this.Onheight_RTChanging(value);
+					this.SendPropertyChanging();
+					this._height_RT = value;
+					this.SendPropertyChanged("height_RT");
+					this.Onheight_RTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_RT", DbType="Float NOT NULL")]
+		public double thickness_RT
 		{
 			get
 			{
@@ -1682,6 +1219,493 @@ namespace WPF_DCupNote
 					if ((value != null))
 					{
 						value.RectangleTags.Add(this);
+						this._ID_DCN = value.ID_DCN;
+					}
+					else
+					{
+						this._ID_DCN = default(string);
+					}
+					this.SendPropertyChanged("dCupnote");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EllipseTag")]
+	public partial class EllipseTag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _ID_ET;
+		
+		private string _ID_DCN;
+		
+		private string _Note_ET;
+		
+		private double _startLocX_ET;
+		
+		private double _startLocY_ET;
+		
+		private double _centerLocX_ET;
+		
+		private double _centerLocY_ET;
+		
+		private double _wight_ET;
+		
+		private double _height_ET;
+		
+		private double _thickness_ET;
+		
+		private string _color_ET;
+		
+		private double _connector_x1_ET;
+		
+		private double _connector_y1_ET;
+		
+		private double _connector_x2_ET;
+		
+		private double _connector_y2_ET;
+		
+		private bool _connector_hidden_ET;
+		
+		private bool _ellipse_hidden;
+		
+		private EntityRef<dCupnote> _dCupnote;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnID_ETChanging(string value);
+    partial void OnID_ETChanged();
+    partial void OnID_DCNChanging(string value);
+    partial void OnID_DCNChanged();
+    partial void OnNote_ETChanging(string value);
+    partial void OnNote_ETChanged();
+    partial void OnstartLocX_ETChanging(double value);
+    partial void OnstartLocX_ETChanged();
+    partial void OnstartLocY_ETChanging(double value);
+    partial void OnstartLocY_ETChanged();
+    partial void OncenterLocX_ETChanging(double value);
+    partial void OncenterLocX_ETChanged();
+    partial void OncenterLocY_ETChanging(double value);
+    partial void OncenterLocY_ETChanged();
+    partial void Onwight_ETChanging(double value);
+    partial void Onwight_ETChanged();
+    partial void Onheight_ETChanging(double value);
+    partial void Onheight_ETChanged();
+    partial void Onthickness_ETChanging(double value);
+    partial void Onthickness_ETChanged();
+    partial void Oncolor_ETChanging(string value);
+    partial void Oncolor_ETChanged();
+    partial void Onconnector_x1_ETChanging(double value);
+    partial void Onconnector_x1_ETChanged();
+    partial void Onconnector_y1_ETChanging(double value);
+    partial void Onconnector_y1_ETChanged();
+    partial void Onconnector_x2_ETChanging(double value);
+    partial void Onconnector_x2_ETChanged();
+    partial void Onconnector_y2_ETChanging(double value);
+    partial void Onconnector_y2_ETChanged();
+    partial void Onconnector_hidden_ETChanging(bool value);
+    partial void Onconnector_hidden_ETChanged();
+    partial void Onellipse_hiddenChanging(bool value);
+    partial void Onellipse_hiddenChanged();
+    #endregion
+		
+		public EllipseTag()
+		{
+			this._dCupnote = default(EntityRef<dCupnote>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_ET", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string ID_ET
+		{
+			get
+			{
+				return this._ID_ET;
+			}
+			set
+			{
+				if ((this._ID_ET != value))
+				{
+					this.OnID_ETChanging(value);
+					this.SendPropertyChanging();
+					this._ID_ET = value;
+					this.SendPropertyChanged("ID_ET");
+					this.OnID_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_DCN", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ID_DCN
+		{
+			get
+			{
+				return this._ID_DCN;
+			}
+			set
+			{
+				if ((this._ID_DCN != value))
+				{
+					if (this._dCupnote.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnID_DCNChanging(value);
+					this.SendPropertyChanging();
+					this._ID_DCN = value;
+					this.SendPropertyChanged("ID_DCN");
+					this.OnID_DCNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note_ET", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Note_ET
+		{
+			get
+			{
+				return this._Note_ET;
+			}
+			set
+			{
+				if ((this._Note_ET != value))
+				{
+					this.OnNote_ETChanging(value);
+					this.SendPropertyChanging();
+					this._Note_ET = value;
+					this.SendPropertyChanged("Note_ET");
+					this.OnNote_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startLocX_ET", DbType="Float NOT NULL")]
+		public double startLocX_ET
+		{
+			get
+			{
+				return this._startLocX_ET;
+			}
+			set
+			{
+				if ((this._startLocX_ET != value))
+				{
+					this.OnstartLocX_ETChanging(value);
+					this.SendPropertyChanging();
+					this._startLocX_ET = value;
+					this.SendPropertyChanged("startLocX_ET");
+					this.OnstartLocX_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startLocY_ET", DbType="Float NOT NULL")]
+		public double startLocY_ET
+		{
+			get
+			{
+				return this._startLocY_ET;
+			}
+			set
+			{
+				if ((this._startLocY_ET != value))
+				{
+					this.OnstartLocY_ETChanging(value);
+					this.SendPropertyChanging();
+					this._startLocY_ET = value;
+					this.SendPropertyChanged("startLocY_ET");
+					this.OnstartLocY_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_centerLocX_ET", DbType="Float NOT NULL")]
+		public double centerLocX_ET
+		{
+			get
+			{
+				return this._centerLocX_ET;
+			}
+			set
+			{
+				if ((this._centerLocX_ET != value))
+				{
+					this.OncenterLocX_ETChanging(value);
+					this.SendPropertyChanging();
+					this._centerLocX_ET = value;
+					this.SendPropertyChanged("centerLocX_ET");
+					this.OncenterLocX_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_centerLocY_ET", DbType="Float NOT NULL")]
+		public double centerLocY_ET
+		{
+			get
+			{
+				return this._centerLocY_ET;
+			}
+			set
+			{
+				if ((this._centerLocY_ET != value))
+				{
+					this.OncenterLocY_ETChanging(value);
+					this.SendPropertyChanging();
+					this._centerLocY_ET = value;
+					this.SendPropertyChanged("centerLocY_ET");
+					this.OncenterLocY_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wight_ET", DbType="Float NOT NULL")]
+		public double wight_ET
+		{
+			get
+			{
+				return this._wight_ET;
+			}
+			set
+			{
+				if ((this._wight_ET != value))
+				{
+					this.Onwight_ETChanging(value);
+					this.SendPropertyChanging();
+					this._wight_ET = value;
+					this.SendPropertyChanged("wight_ET");
+					this.Onwight_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_height_ET", DbType="Float NOT NULL")]
+		public double height_ET
+		{
+			get
+			{
+				return this._height_ET;
+			}
+			set
+			{
+				if ((this._height_ET != value))
+				{
+					this.Onheight_ETChanging(value);
+					this.SendPropertyChanging();
+					this._height_ET = value;
+					this.SendPropertyChanged("height_ET");
+					this.Onheight_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thickness_ET", DbType="Float NOT NULL")]
+		public double thickness_ET
+		{
+			get
+			{
+				return this._thickness_ET;
+			}
+			set
+			{
+				if ((this._thickness_ET != value))
+				{
+					this.Onthickness_ETChanging(value);
+					this.SendPropertyChanging();
+					this._thickness_ET = value;
+					this.SendPropertyChanged("thickness_ET");
+					this.Onthickness_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color_ET", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string color_ET
+		{
+			get
+			{
+				return this._color_ET;
+			}
+			set
+			{
+				if ((this._color_ET != value))
+				{
+					this.Oncolor_ETChanging(value);
+					this.SendPropertyChanging();
+					this._color_ET = value;
+					this.SendPropertyChanged("color_ET");
+					this.Oncolor_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_x1_ET", DbType="Float NOT NULL")]
+		public double connector_x1_ET
+		{
+			get
+			{
+				return this._connector_x1_ET;
+			}
+			set
+			{
+				if ((this._connector_x1_ET != value))
+				{
+					this.Onconnector_x1_ETChanging(value);
+					this.SendPropertyChanging();
+					this._connector_x1_ET = value;
+					this.SendPropertyChanged("connector_x1_ET");
+					this.Onconnector_x1_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_y1_ET", DbType="Float NOT NULL")]
+		public double connector_y1_ET
+		{
+			get
+			{
+				return this._connector_y1_ET;
+			}
+			set
+			{
+				if ((this._connector_y1_ET != value))
+				{
+					this.Onconnector_y1_ETChanging(value);
+					this.SendPropertyChanging();
+					this._connector_y1_ET = value;
+					this.SendPropertyChanged("connector_y1_ET");
+					this.Onconnector_y1_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_x2_ET", DbType="Float NOT NULL")]
+		public double connector_x2_ET
+		{
+			get
+			{
+				return this._connector_x2_ET;
+			}
+			set
+			{
+				if ((this._connector_x2_ET != value))
+				{
+					this.Onconnector_x2_ETChanging(value);
+					this.SendPropertyChanging();
+					this._connector_x2_ET = value;
+					this.SendPropertyChanged("connector_x2_ET");
+					this.Onconnector_x2_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_y2_ET", DbType="Float NOT NULL")]
+		public double connector_y2_ET
+		{
+			get
+			{
+				return this._connector_y2_ET;
+			}
+			set
+			{
+				if ((this._connector_y2_ET != value))
+				{
+					this.Onconnector_y2_ETChanging(value);
+					this.SendPropertyChanging();
+					this._connector_y2_ET = value;
+					this.SendPropertyChanged("connector_y2_ET");
+					this.Onconnector_y2_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connector_hidden_ET", DbType="Bit NOT NULL")]
+		public bool connector_hidden_ET
+		{
+			get
+			{
+				return this._connector_hidden_ET;
+			}
+			set
+			{
+				if ((this._connector_hidden_ET != value))
+				{
+					this.Onconnector_hidden_ETChanging(value);
+					this.SendPropertyChanging();
+					this._connector_hidden_ET = value;
+					this.SendPropertyChanged("connector_hidden_ET");
+					this.Onconnector_hidden_ETChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ellipse_hidden", DbType="Bit NOT NULL")]
+		public bool ellipse_hidden
+		{
+			get
+			{
+				return this._ellipse_hidden;
+			}
+			set
+			{
+				if ((this._ellipse_hidden != value))
+				{
+					this.Onellipse_hiddenChanging(value);
+					this.SendPropertyChanging();
+					this._ellipse_hidden = value;
+					this.SendPropertyChanged("ellipse_hidden");
+					this.Onellipse_hiddenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="dCupnote_EllipseTag", Storage="_dCupnote", ThisKey="ID_DCN", OtherKey="ID_DCN", IsForeignKey=true)]
+		public dCupnote dCupnote
+		{
+			get
+			{
+				return this._dCupnote.Entity;
+			}
+			set
+			{
+				dCupnote previousValue = this._dCupnote.Entity;
+				if (((previousValue != value) 
+							|| (this._dCupnote.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._dCupnote.Entity = null;
+						previousValue.EllipseTags.Remove(this);
+					}
+					this._dCupnote.Entity = value;
+					if ((value != null))
+					{
+						value.EllipseTags.Add(this);
 						this._ID_DCN = value.ID_DCN;
 					}
 					else

@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace WPF_DCupNote
 {
-    class TagNoteBuffer
+    public class TagNoteBuffer
     {
         public Point TagPoint;
         public StackPanel TagPanel;
@@ -29,7 +29,7 @@ namespace WPF_DCupNote
             editSaveBtn = new Button();
             transparentBtn = new Button();
 
-            TagPoint.X = X + 20;
+            TagPoint.X = X;
             TagPoint.Y = Y;
 
             TagPanel.Orientation = Orientation.Vertical;

@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="MyEllipse.cs" />
+    <Compile Include="MyRectangle.cs" />
     <Compile Include="staticClass.cs" />
     <Compile Include="TagNoteBuffer.cs" />
     <Page Include="cekOnly.xaml">

@@ -7,8 +7,8 @@
       <Column Name="Note_DCN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Image" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Association Name="dCupnote_LineTag" Member="LineTags" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="LineTag" />
-      <Association Name="dCupnote_EllipseTag" Member="EllipseTags" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="EllipseTag" />
       <Association Name="dCupnote_RectangleTag" Member="RectangleTags" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="RectangleTag" />
+      <Association Name="dCupnote_EllipseTag" Member="EllipseTags" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="EllipseTag" />
     </Type>
   </Table>
   <Table Name="dbo.LineTag" Member="LineTags">
@@ -16,12 +16,11 @@
       <Column Name="ID_LT" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ID_DCN" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Note_LT" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="counter_LT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="x1_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="y1_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="x2_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="y2_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="thickness_LT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="thickness_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="color_LT" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="connector_x1_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="connector_y1_LT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -32,38 +31,18 @@
       <Association Name="dCupnote_LineTag" Member="dCupnote" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="dCupnote" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.EllipseTag" Member="EllipseTags">
-    <Type Name="EllipseTag">
-      <Column Name="ID_ET" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ID_DCN" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Note_ET" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="counter_ET" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="x_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="y_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="wight_ET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="height_ET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="thickness_ET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="color_ET" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="connector_x1_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="connector_y1_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="connector_x2_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="connector_y2_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="connector_hidden_ET" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ellipse_hidden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="dCupnote_EllipseTag" Member="dCupnote" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="dCupnote" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.RectangleTag" Member="RectangleTags">
     <Type Name="RectangleTag">
       <Column Name="ID_RT" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ID_DCN" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Note_RT" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="counter_RT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="x1_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="y1_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="x2_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="y2_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="thickness_RT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="startLocX_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="startLocY_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="centerLocX_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="centerLocY_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="wight_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="height_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="thickness_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="color_RT" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="connector_x1_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="connector_y1_RT" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -72,6 +51,28 @@
       <Column Name="connector_hidden_RT" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="rectangle_hidden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="dCupnote_RectangleTag" Member="dCupnote" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="dCupnote" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EllipseTag" Member="EllipseTags">
+    <Type Name="EllipseTag">
+      <Column Name="ID_ET" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_DCN" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Note_ET" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="startLocX_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="startLocY_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="centerLocX_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="centerLocY_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="wight_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="height_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="thickness_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="color_ET" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="connector_x1_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="connector_y1_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="connector_x2_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="connector_y2_ET" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="connector_hidden_ET" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ellipse_hidden" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="dCupnote_EllipseTag" Member="dCupnote" ThisKey="ID_DCN" OtherKey="ID_DCN" Type="dCupnote" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

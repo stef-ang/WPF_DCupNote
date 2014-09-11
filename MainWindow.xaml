@@ -47,10 +47,13 @@
             </Button.Effect>
         </Button>
         <GroupBox Header="Details:" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Height="63" Width="299" BorderThickness="2,2,0,0" BorderBrush="#FF4E2E28">
-            <TextBlock HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="226" Margin="5,5,0,0"/>
+            <TextBlock x:Name="detailTB" HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="226" Margin="5,5,0,0"/>
         </GroupBox>
-
+        <Image x:Name="saveDashboard" Grid.Row="1" Source="Icon/icon save.png" Margin="0,0,5,5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Tag="Save" 
+                   Visibility="Hidden" Panel.ZIndex="2"
+                   MouseLeftButtonDown="saveDashboard_MouseLeftButtonDown"/>
         <Canvas x:Name="mainCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+            
             <Canvas.Background>
                 <ImageBrush ImageSource="Icon/footer.png" Stretch="Uniform" AlignmentY="Bottom" Opacity="0.3"/>
             </Canvas.Background>

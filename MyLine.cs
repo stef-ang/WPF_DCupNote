@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace WPF_DCupNote
 {
-    class MyLine
+    public class MyLine
     {
         public string _IDLine;
         public Line _TheLine;
@@ -70,10 +70,12 @@ namespace WPF_DCupNote
 
             _TheConnector.X2 = cek.X;
             _TheConnector.Y2 = cek.Y;
-            _TheConnector.X1 = staticClass.ConnectorStart(cek, _TheLine)[0];
-            _TheConnector.Y1 = staticClass.ConnectorStart(cek, _TheLine)[1];
+            _TheConnector.X1 = staticClass.LineConnectorStart(cek, _TheLine).X;
+            _TheConnector.Y1 = staticClass.LineConnectorStart(cek, _TheLine).Y;
             _TheConnector.StrokeThickness = 1.0;
             _TheConnector.Stroke = _TheLine.Stroke;
+
+            Canvas.SetZIndex(_TheConnector, 1);
         }
 
         
